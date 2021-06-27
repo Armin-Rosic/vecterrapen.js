@@ -162,7 +162,7 @@ const myScreen = penScreen(width, height, tag_id)
 ### `addPenTo(screen)`
 Pens, and their extensions, do all of the interesting work and are the primary object we interact with. Pens can only come to life by being added to an existing screen, and they begin their life at 'home', which is at the center of their screen facing to the right.     
     
-As the pen recieves drawing, stylistic, and other instructions, it updates it's state atomically in accordance with the particular instruction. Instructions that result in something being drawn on the screen have a return value of the actual graphics primitive that was drawn, upon binding this value to a variable - one can interact with the raw SVG element directly. (see [below](#drawn-svg-elements))  
+As the pen recieves drawing, stylistic, and other instructions, it updates it's state atomically in accordance with the particular instruction. Instructions that result in something being drawn on the screen have a return value of the actual graphics primitive that was drawn, upon binding this value to a variable - one can interact with the raw SVG DOM element directly. 
 
 
 #### Instantiation  
