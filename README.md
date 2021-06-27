@@ -2,19 +2,29 @@
 Vecterrapen.js is an SVG graphics library inspired by Python's Turtle graphics module. It's primary goal is to bring the ease and joy of Turtle graphics to the web in a modern and viable way. 
 However, given the fantastic support and performance of SVGs in modern browsers and the DOM nature of SVG elements, vecterrapen.js also serves as a micro UI and game framework with high performance / interactive 2D graphics, cross-browser support, and a beginner friendly and extensible architecture.
 
+
+###### My personal [website](https://www.arminrosic.com) is built entirely with vecterrapen. 
+
 # Table of contents
 - Getting Started
 - [Screens](#screens)
 - [Pens (turtles / terrapins)](#pens) 
 - [Paths](#paths)
 - [Transforms](#transforms)
-- [UTILS](#utils)
 - [Odds and Ends](#odds-and-ends)
   - [Colors](#colors)
+  - [UTILS](#utils)
   - [Architecture](#architecture)
   - [Hey, what's up with the name?](#hey-whats-up-with-the-name)
 
-###### My personal [website](https://www.arminrosic.com) is built with vecterrapen. 
+## Overview 
+* A screen is instantiated and will serve as the canvas for your creation. 
+* On that screen you add as many independently controllable pens (turtles/terrapins) as you'd like. 
+* Each pen patiently awaits your instructions facing to the right in the middle of it's screen.
+* Each pen can also have additional superpowers added to it (paths and transforms for now).
+* You happily wield your pens with the wildest algorithms you can dream up. :)
+* Art. UIs. Websites. Visualizations. Animations. ... :) :)
+
 ## Minimal example 
 
 ```javascript
@@ -212,6 +222,7 @@ const pen_2 = addPenTo(myScreen)
 ###### Drawing
 * #### `penUp() / penDown()`
   - *( )  -->  ( )*
+  - controls whether or not the pen draws a line when it moves
 * #### `isPenDown()`
   - *( )  -->  (bool)*
 * #### `forward(distance) / backward(distance)`
@@ -266,15 +277,18 @@ const pen_2 = addPenTo(myScreen)
 
 * #### `setX(x) / setY(y)` 
   - *( number ) --> (svg \< line \>) || ( )* 
+  - moves the pen horizontally or vertically, drawing a line if the pen is down
 
 * #### `getX() / getY()`
   - *( )  -->  ( number )*
 
 * #### `vector(magnitude, angle)`
   - *( number, number ) --> (svg \< line \>) || ( )* 
+  - sets the pen's (angle) and moves the pen by (magnitude), drawing a line if the pen down
 
 * #### `vectorDxDy(dy, dx)`
   - *( number, number ) --> (svg \< line \>) || ( )* 
+  - displaces the pen by (dy) and (dx), drawing a line if the pen down
 
 * #### `image(height, width, href)`
   - *( number, number, string ) --> (svg \< image \>)* 
@@ -326,6 +340,7 @@ const pen_2 = addPenTo(myScreen)
 
 * #### `penSize(size)`
   - *( number )  -->  ( )*
+  - sets the width of line the pen draws
 * #### `getPenSize()`
   - *( )  -->  ( number )*
 * #### `textSize(size)` 
@@ -352,6 +367,7 @@ For various reasons, the need comes up to be able to assemble/define parts of dr
 This is accomplished via rendering controls. 
 These controls are particularly useful with the drawing of a large collection of elements, as it is generally far more efficient 
 to define them all and then draw them all at once - than it is to define and draw each one in turn.  
+This is also very useful when used in conjunction with asynchronous code, for preparing animation frames. 
  
 * #### `renderOff() / renderOn()` 
   - *( )  -->  ( )*
@@ -467,6 +483,8 @@ let aliased = [
   - options same as for pathLinear
 
 ##### Random Walks Revisited
+Here we reimplement our previous random walk example, but have each walk of 3,000 steps be defined as a single path.
+The screens look identical, but we are now using 2 DOM nodes instead of 6,000. Yes, paths rock! 
 ```javascript
 import * as vtp from './vecterrapen.js'
 
@@ -509,7 +527,7 @@ pen_2.pathLinear({
 ###### Arcs
 * #### `arc(radius, startAngle, endAngle)` 
   - *( number, number, number )  -->  ( svg \< path \>) )*
-  - draws arc centered at the pen's position, does not move pen
+  - draws arc centered at the pen's position, does not move the pen
   - angles are measured from the +X axis 
 * #### `wedge(radius, startAngle, endAngle)` 
   - *( number, number, number )  -->  ( svg \< path \>) )*
@@ -619,7 +637,26 @@ pen_1.moveUp(20)
 ---
 ---
 ---
-## UTILS
+
+# Odds and Ends
+
+### Colors
+Colors are currently specified as strings and can take all the standard color formats.
+
+| Format | Examples |
+| ------ | ------- |
+| Color Names |'red', 'cyan'
+| RGB | 'rgb(255, 0, 0)'|
+| RGBA | 'rgba(255, 0, 0, 0.3)'| 
+| %RGB / %RGBA | 'rgba(100%, 0%, 0%, 30%)'
+| HEX | '#00FFFF'|
+
+###### Try RGBA for fills in complex overlapping shapes ! 
+A lot of really beautiful things happen when the SVG renderers get a complex shape with fill colors containing alpha values, it was one of the unexpectedly beautiful things that kept me working on this project and doing gobs of exploratory programming with it.  
+
+---
+
+### UTILS
 I debated whether or not to include these, but they come up so often in my *vecterrapen* programs, that I figured I best add them. I will be adding many more, if I keep this section going forward.
 
 #### Functions
@@ -643,24 +680,6 @@ I debated whether or not to include these, but they come up so often in my *vect
   - returns a random RGBA color.  
 
 ---
----
----
-
-# Odds and Ends
-
-### Colors
-Colors are currently specified as strings and can take all the standard color formats.
-
-| Format | Examples |
-| ------ | ------- |
-| Color Names |'red', 'cyan'
-| RGB | 'rgb(255, 0, 0)'|
-| RGBA | 'rgba(255, 0, 0, 0.3)'| 
-| %RGB / %RGBA | 'rgba(100%, 0%, 0%, 30%)'
-| HEX | '#00FFFF'|
-
-###### Try RGBA for fills in complex overlapping shapes ! 
-A lot of really beautiful things happen when the SVG renderers get a complex shape with fill colors containing alpha values, it was one of the unexpectedly beautiful things that kept me working on this project and doing gobs of exploratory programming with it.  
 
 ### Architecture
 
@@ -674,6 +693,8 @@ They are a very nimble way to make hybrid objects, overcoming some of the shortc
 I want *vecterrapen* to be able to grow not only as I adopt/incorporate more of the SVG standard, but as I get ideas for functionality that would make *vecterrapen* more useful in more use cases. And, while *paths* and *transforms* are the only current mixins, there are many more in the pipeline. 
 `With that said...`
 As I work on the inclusion of parts of the standard, like animation and filters, there may very well be functionality that works from stand alone functions: functions that receive state, enact side-effects, and perhaps return a handle to a spawned element.   
+
+---
 
 ### Hey, what's up with the name?
 
