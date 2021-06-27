@@ -120,7 +120,7 @@ for (let i = 0; i < 3000; i++){
 ![Minimal FUN Example](/images/minimalFUNExample.png)
 
 **This implementation of random walks adds 6,000 nodes to the DOM, yikes!!   
-**Even though most browsers/devices handle this just fine, paths allow for a much more performant implementation. 
+**Even though most browsers/devices handle this just fine, paths allow for a much more compact implementation. 
 **see [Random Walks Revisited](#random-walks-revisited) 
 
 ---
@@ -624,11 +624,21 @@ pen_1.moveUp(20)
   - zoomIn / dilate about the pen's current position by (percent)
   - positive inputs make the drawing bigger, negative smaller
   - note: the scale is not linear. (-100) makes the drawing the smallest possible, i.e. dissapear, while there is no upper bound on how large the drawing can be scalled
+* #### `stretchX(amount) / stretchY(amount)` 
+  - *( number )  -->  ( )*
+  - stretch the drawing horizontally or vertically
+* #### `flipX() / flipY()` 
+  - *( )  -->  ( )*
+  - flips the drawing about the pen's current position
+* #### `shearX() / shearY()` 
+  - *( )  -->  ( )*
+  - shears the drawing about the pen's current position
 
 ###### Compound Transforms
 * #### `fitInto(element)` 
   - *( svg element )  -->  ( )*
   - finds the bounding box of everything the pen has draw, shrinks it just enough to fit in (element)'s bounding box, and moves it's center to correspond with the center of (element)
+  - intended to be used with an element that was not drawn by the current pen
   - currently, only meant to factor in the bounding box - so, it only fits into rectangular elements nicely
   - future development will check if (element) is a circle, and fit the drawing into the circle's inscribed square 
   - future development will also have a 'fitIntoAnimated' that will show the transformation of the drawing into (element)
@@ -703,7 +713,9 @@ The original inspiration for the project was Python's Turtle module, as I mentio
 In the endless back and forth of available package names and name ideas, I one day learned that there is a collection of turtle species called "terrapins". That struck an immediate chord as it referred to turtles and, with some adjusted spelling (given pens), I was going to call it 'terrapen'. But, something was missing ... these aren't just turtles/pens they are vector turtles!  So, I decided to sneak in a reference to vectors as well.   
 (There is something so awesomly satisfying about bringing punny words to life!) 
 
+---
 
+Thanks for checking out vecterrapen ! :) 
 
 
 
