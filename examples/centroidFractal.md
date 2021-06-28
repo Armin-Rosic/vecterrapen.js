@@ -22,7 +22,7 @@ function centroidFractal(p1,p2,p3){
     inside the tringle defined by points 'p1', 'p2', and 'p3'.
     So, we will find the centroid/center of this outermost triangle, and then use this new
     point as well as adjacent points around the triangle to construct 6 inscribed triangles.
-    We then recurively do this for all inscribed tringles, untill we draw line segments 
+    We then recurively do this for all inscribed tringles, until we draw line segments 
     smaller than a specified size (15 pixels in our case). 
     */
 
