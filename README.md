@@ -149,6 +149,9 @@ const myScreen = penScreen(width, height, tag_id)
 * #### `bgColor(color)` 
   - *(string) --> ( )*
   - see [colors](#colors) 
+* #### `select()` 
+  - *( ) --> ( \< svg \>)*
+  - allows for the dirent interaction with the screen's SVG node
 * #### `getOriginalWidth() / getOriginalHeight()` 
   - *( )  -->  (number)*
   - width/height of screen prior to any resizing events
@@ -638,7 +641,7 @@ pen_1.moveUp(20)
 * #### `fitInto(element)` 
   - *( svg element )  -->  ( )*
   - finds the bounding box of everything the pen has draw, shrinks it just enough to fit in (element)'s bounding box, and moves it's center to correspond with the center of (element)
-  - intended to be used with an element that was not drawn by the current pen
+  - intended to be used with an element that was not drawn by the current pen, or the pen's screen (via `screen.select()`)
   - currently, only meant to factor in the bounding box - so, it only fits into rectangular elements nicely
   - future development will check if (element) is a circle, and fit the drawing into the circle's inscribed square 
   - future development will also have a 'fitIntoAnimated' that will show the transformation of the drawing into (element)
